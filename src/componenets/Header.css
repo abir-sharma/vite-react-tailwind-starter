@@ -1,0 +1,32 @@
+.pw-header {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  color: white;
+  padding: 30px 20px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.pw-header-content {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pw-logo {
+  font-size: 48px;
+}
+
+.pw-title {
+  font-size: 28px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.pw-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}

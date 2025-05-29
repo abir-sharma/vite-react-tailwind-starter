@@ -1,25 +1,22 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
-
-module.exports = {
-  mode: 'jit',
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
-      fontFamily: {
-        primary: ['Inter', ...fontFamily.sans],
+      animation: {
+        'glow': 'glow 1.5s ease-in-out infinite',
       },
-      colors: {
-        primary: {
-          400: '#00E0F3',
-          500: '#00c4fd',
+      keyframes: {
+        glow: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.1)', opacity: '0.8' },
         },
-        dark: '#333333',
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [require('@tailwindcss/forms')],
-};
+
+  plugins: [],
+}
