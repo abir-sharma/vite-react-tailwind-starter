@@ -8,7 +8,6 @@ const LectureScreen = () => {
     const [cameraOn, setCameraOn] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
     const { videoId } = useParams();
-    console.log("Video ID:", videoId);
     useEffect(() => {
         const enableCamera = async () => {
             try {

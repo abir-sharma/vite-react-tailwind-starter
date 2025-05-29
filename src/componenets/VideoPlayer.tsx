@@ -48,6 +48,8 @@ const VideoPlayer = ({
     const [answerSubmittedSuccessfully, setAnswerSubmittedSuccessfully] = useState<boolean | null>(null);
     const [cameraAllowed, setCameraAllowed] = useState(false);
     const [blurEnabled, setBlurEnabled] = useState(false);
+    const [prevState, setPrevState] = useState("")
+    const [currentState, setCurrentState] = useState("")
 
     const userData = localStorage.getItem('userData');
     const studentName = userData ? JSON.parse(userData).name : '';
@@ -316,60 +318,77 @@ const VideoPlayer = ({
     }, [])
 
     useEffect(() => {
-        let lookTimer: ReturnType<typeof setTimeout>;
-        let eyeTimer: ReturnType<typeof setTimeout>;
+        // let lookTimer: ReturnType<typeof setTimeout>;
+        // let eyeTimer: ReturnType<typeof setTimeout>;
 
 
         if (activateAttentivness) {
             // Check for looking directions
             if (lookingLeft || lookingRight || lookingUp) {
-                lookTimer = setTimeout(() => {
-                    const message = "Don't get distracted!";
-                    toast(message + " 📚");
+                setCurrentState("unattentive")
+                // lookTimer = setTimeout(() => {
+                //     const message = "Don't get distracted!";
+                //     toast(message + " 📚");
                     // speak(message + studentName);
-                    const audio = new Audio(negativemp3);
-                    audio.play();
-                    triggerCoinAnimation(-10)
-                }, 3000);
+                    // const audio = new Audio(negativemp3);
+                    // audio.play();
+                //     triggerCoinAnimation(-10)
+                // }, 3000);
             }
 
             if (!lookingUp && !lookingLeft && !lookingRight && eyeStatus === "open") {
-                eyeTimer = setTimeout(() => {
-                    const message = "Great job staying engaged!";
-                    toast(message + " 👍");
+                setCurrentState("attentive")
+                // eyeTimer = setTimeout(() => {
+                //     const message = "Great job staying engaged!";
+                //     toast(message + " 👍");
                     // speak(message + studentName);
-                    const audio = new Audio(positivemp3);
-                    audio.play();
-                    triggerCoinAnimation(+20)
-                }, 3000);
+                    // const audio = new Audio(positivemp3);
+                    // audio.play();
+                //     triggerCoinAnimation(+20)
+                // }, 3000);
             }
 
             if (eyeStatus === 'both_closed') {
-                eyeTimer = setTimeout(() => {
-                    const message = "Hey! Wake up. Stay focused.";
-                    toast("😴 " + message);
+                setCurrentState("unattentive")
+                // eyeTimer = setTimeout(() => {
+                //     const message = "Hey! Wake up. Stay focused.";
+                //     toast("😴 " + message);
                     // speak(message + studentName);
-                    const audio = new Audio(negativemp3);
-                    audio.play();
-                    triggerCoinAnimation(-10)
-                }, 3000);
+                    // const audio = new Audio(negativemp3);
+                    // audio.play();
+                //     triggerCoinAnimation(-10)
+                // }, 3000);
             }
-
         }
 
-        return () => {
-            clearTimeout(lookTimer);
-            clearTimeout(eyeTimer);
-        };
+
+
+        // return () => {
+        //     clearTimeout(lookTimer);
+        //     clearTimeout(eyeTimer);
+        // };
     }, [lookingLeft, lookingRight, lookingUp, lookingDown, eyeStatus]);
 
-    console.log("looking left", lookingLeft)
-    console.log("looking Right", lookingRight)
-    console.log("looking down", lookingDown)
-    console.log("looking up", lookingUp)
-    console.log("eyeStatus", eyeStatus)
-    console.log(showModal, "showModal")
-    console.log(activateAttentivness, "activateattentivness videoPlayer")
+    useEffect(() => {
+        if (prevState != currentState) {
+            if (currentState === "attentive") {
+                const message = "Great job staying engaged!";
+                toast(message + " 👍");
+                const audio = new Audio(positivemp3);
+                audio.play();
+                triggerCoinAnimation(+20)
+            }
+            else {
+                const message = "Don't get distracted!";
+                toast(message + " 👍");
+                const audio = new Audio(negativemp3);
+                audio.play();
+                triggerCoinAnimation(-10)
+            }
+            setPrevState(currentState)
+        }
+    }, [currentState])
+
 
     return (
         <div
@@ -478,7 +497,6 @@ const VideoPlayer = ({
                 isOpen={showModal}
                 // onClose={() => handleModalClose}
                 onClose={() => {
-                    // console.log("dsl")
                     setShowModal(false)
                     setModalDecisionMade(true)
                 }}
