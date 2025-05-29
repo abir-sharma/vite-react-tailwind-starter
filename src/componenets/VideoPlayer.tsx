@@ -14,6 +14,8 @@ import CameraPermissionModal from './CameraPermissionModal';
 import { ToastContainer, toast } from 'react-toastify';
 import FaceMeshComponent from './FaceMeshComponent';
 import axios from 'axios';
+import socket from "../socket"
+import StudentCameraComponent from './StudentCameraComponant';
 
 const VideoPlayer = ({
     src,
@@ -75,6 +77,8 @@ const VideoPlayer = ({
         }, 3000);
     };
 
+    
+    
     useEffect(() => {
         return () => {
             if (hideControlsTimeout.current) {
@@ -285,26 +289,6 @@ const VideoPlayer = ({
 
     }, [showWebcam,isInFrame])
 
-    useEffect(() => {
-        if (isInFrame) {
-            // axios.post("http://localhost:3000/api/student/camera", {
-            //     "teacherId": "t1",
-            //     "studentId": studentId,
-            //     "status": "active"
-            // })
-            console.log("in frame")
-        }
-        else {
-            // axios.post("http://localhost:3000/api/student/camera", {
-            //     "teacherId": "t1",
-            //     "studentId": studentId,
-            //     "status": "inactive"
-            // })
-            console.log("in frame")
-        }
-
-    }, [isInFrame])
-
 
 
     useEffect(() => {
@@ -474,6 +458,7 @@ const VideoPlayer = ({
                 isOpen={showModal}
                 // onClose={() => handleModalClose}
                 onClose={() => {
+                    // console.log("dsl")
                     setShowModal(false)
                     setModalDecisionMade(true)
                 }}
