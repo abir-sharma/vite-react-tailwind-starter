@@ -18,45 +18,18 @@ interface Props {
 }
 
 const Index: React.FC<Props>  = ({studentName}) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [activateAttentivness, setActiveAttentivness] = useState(false); // whether camera is open ofr not count
   const [__faceData, setFaceData] = useState<any>(null); // Replace `any` with proper type if known
-  const [lookingLeft, setLookingLeft] = useState(false);
-  const [lookingRight, setLookingRight] = useState(false);
-  const [lookingUp, setLookingUp] = useState(false);
-  const [lookingDown, setLookingDown] = useState(false);
-  const [eyeStatus, setEyeStatus] = useState<'open' | 'left_closed' | 'right_closed' | 'both_closed'>('open');
-  const [isInFrame, setIsInFrame] = useState(false)
+  const [openAcheivment,setOpenAchievement]=useState()
 
-  const [submitAnswer, setSubmitAnswer] = useState(true);
-  const [answerSubmittedSuccessfully, setAnswerSubmittedSuccessfully] = useState<boolean | null>(null);
-  const [openAcheivment,setOpenAchievement]=useState(false)
+  
   const [showModal, setShowModal] = useState(false);
-  const [cameraAllowed, setCameraAllowed] = useState(false);
-  const [blurEnabled, setBlurEnabled] = useState(false);
-  const navigate = useNavigate();
 
-  const handleAllowCamera = (blur: boolean) => {
-    console.log("handle allow camera")
-    setCameraAllowed(true);
-    setBlurEnabled(blur);
-    setShowModal(false);
-    setActiveAttentivness(true)
-    navigate("/video-player")
-    // Start camera logic here with blur config...
-  };
 
-  const [showCoin, setShowCoin] = useState(false);
-  const [pointChange, setPointChange] = useState<number | null>(null);
+  
 
-  const triggerCoinAnimation = (points: number) => {
-    setPointChange(points);
-    setShowCoin(true);
-    setTimeout(() => {
-      setShowCoin(false);
-      setPointChange(null);
-    }, 2000);
-  };
+
+
+  
 
 
   // const closePlayer = () => {

@@ -78,7 +78,6 @@ const FaceMeshComponent: React.FC<Props> = ({ setLookingLeft,setLookingRight,set
 
         return (vertical1 + vertical2) / (2.0 * horizontal);
     }
-    console.log("hello")
     // This function handles face mesh results and updates canvas + state
     function handleResults(results: Results) {
         const canvasCtx = canvasRef.current?.getContext('2d');
