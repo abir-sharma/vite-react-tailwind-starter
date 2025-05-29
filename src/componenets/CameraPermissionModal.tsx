@@ -154,7 +154,7 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
                 <div className="w-6 h-6 bg-gray-600 rounded-full"></div>
               </div>
             </div> */}
-           <div><img src={Icon} alt="" /></div>
+            <img className='w-20 h-20' src={Icon} alt="" />
             {/* Exclamation mark */}
             {/* <div className="absolute -top-1 right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
               <span className="text-white text-xs font-bold">!</span>
@@ -176,21 +176,21 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-center mb-3 text-gray-900">
+        <h2 className="text-2xl font-bold text-center mb-0 mt-4 text-gray-900">
           Enable Camera for Attentiveness.
         </h2>
 
         {/* Subtitle */}
         {/* <p className="text-gray-600 text-center mb-0"> */}
-          {/* Turn on your camera to track focus and earn rewards.
+        {/* Turn on your camera to track focus and earn rewards.
         </p> */}
 
-        <p className="text-black font-semibold text-center mb-8">
+        {/* <p className="text-black font-semibold text-center mb-8">
           78% of our student using it.
-        </p>
+        </p> */}
 
         {/* Camera Toggle Section */}
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 mb-6">
+        <div className="border-dashed border-gray-300 rounded-lg p-6 mb-4">
           <div className="flex justify-between items-center">
             {/* Camera On */}
             <div className="flex flex-col items-center flex-1">
@@ -198,7 +198,7 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
               <div>
                 {/* // }`}> */}
                 {/* <Camera className={`w-8 h-8 ${cameraEnabled ? 'text-blue-600' : 'text-gray-400'}`} /> */}
-                <img className='w-6 h-6' src={cameraIcon} alt="camerIcon" />
+                <img className='w-8 h-8' src={cameraIcon} alt="camerIcon" />
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -207,17 +207,19 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
                     setCameraEnabled(checked as boolean)
                     setLearningMode("attentive")
                   }}
-                  className="border-2"
+                  className="border-2 mt-2 "
                 />
-                <span className="font-medium text-gray-500">Camera On</span>
+                <span className="font-medium text-gray-500 mt-2">Camera On</span>
               </div>
             </div>
 
             {/* Camera Off */}
             <div className="flex flex-col items-center flex-1">
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 transition-all ${!cameraEnabled ? 'bg-gray-100' : 'bg-gray-50'
-                }`}>
-                <CameraOff className={`w-8 h-8 ${!cameraEnabled ? 'text-gray-600' : 'text-gray-300'}`} />
+              {/* <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 transition-all ${!cameraEnabled ? 'bg-gray-100' : 'bg-gray-50' */}
+              <div>
+                {/* <CameraOff className={`w-8 h-8 ${!cameraEnabled ? 'text-gray-600' : 'text-gray-300'}`} /> */}
+                <img className='w-8 h-8' src={cameraIcon} alt="camerIcon" />
+
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -226,16 +228,50 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
                     setCameraEnabled(!(checked as boolean))
                     setLearningMode("distractive")
                   }}
-                  className="border-2"
+                  className="border-2 mt-2"
                 />
-                <span className="font-medium text-gray-500">Camera Off</span>
+                <span className="font-medium text-gray-500 mt-2">Camera Off</span>
               </div>
             </div>
           </div>
         </div>
 
+        <div className="border-dashed border-gray-300  rounded-lg p-1 mb-6">
+          <div className="flex gap-2">
+            
+            <button
+              // disabled={!cameraEnabled}
+              onClick={() => {
+                setLearningMode("attentive")
+                setCameraEnabled(true)
+              }}
+              className={`flex-1 py-4 px-6 rounded-lg text-white font-medium transition-all ${learningMode === 'attentive'
+                // cameraEnabled
+                ? 'bg-[#3CCB7F] text-white'
+                : 'bg-[#3CCB7F] bg-opacity-30 text-gray-600 hover:bg-gray-50'
+                }`}
+            >
+              Attentive Learning
+            </button>
+            <button
+              // disabled={!cameraEnabled}
+              onClick={() => {
+                setLearningMode("distractive")
+                setCameraEnabled(false)
+                // onClose()
+              }}
+              className={`flex-1 py-4 px-4 rounded-lg font-medium transition-all ${learningMode === 'distractive'
+                ? 'bg-[#E94971] text-white'
+                : 'bg-[#E94971] bg-opacity-30 text-white hover:bg-gray-50'
+                }`}
+            >
+              Distractive Learning
+            </button>
+          </div>
+        </div>
+
         {/* Privacy Option */}
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 mb-6">
+        <div className=" border-gray-300 rounded-lg px-2">
           <div className="flex items-center space-x-3">
             <Checkbox
               checked={blurBackground}
@@ -250,7 +286,7 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
         </div>
 
         {/* Learning Mode Selection */}
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-1 mb-6">
+        {/* <div className="border-dashed border-gray-300 rounded-lg p-1 mb-6">
           <div className="flex">
             <button
               // disabled={!cameraEnabled}
@@ -281,11 +317,11 @@ const CameraPermissionModal: React.FC<CameraPermissionModalProps> = ({ isOpen, o
               Attentive Learning
             </button>
           </div>
-        </div>
-        <div onClick={()=>{
-          cameraEnabled?onAllow(blurBackground):onClose()
+        </div> */}
+        <div onClick={() => {
+          cameraEnabled ? onAllow(blurBackground) : onClose()
 
-        }} className='w-full flex justify-center '><button className='text-white bg-blue-500 rounded-md px-2 py-1 font-semibold'>Proceed</button></div>
+        }} className='w-full flex mt-4 justify-center '><button className='text-white bg-blue-500 rounded-md px-2 py-1 font-semibold'>Proceed</button></div>
       </Card>
     </div>
   );
