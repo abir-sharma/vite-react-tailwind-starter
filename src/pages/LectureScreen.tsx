@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import VideoPlayer from '../componenets/VideoPlayer'; // assume you created this component
 import FloatingCamera from '../componenets/FloatingCamera';
 import { useParams } from 'react-router-dom';
+import alakhSirLecture from "../assets/videoplayback.mp4"
 
 const LectureScreen = () => {
     const [cameraOn, setCameraOn] = useState(true);
@@ -36,7 +37,7 @@ const LectureScreen = () => {
         <div style={styles.container}>
 
             <VideoPlayer
-                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                src={alakhSirLecture}
                 title="Atomic Structure Lecture"
                 onExit={() => console.log('Exited player')}
                 teacherId={videoId}

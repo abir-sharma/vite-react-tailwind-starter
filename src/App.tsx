@@ -15,8 +15,7 @@ function ProtectedRoute({ element }:any) {
 function App() {
   const userData = localStorage.getItem('userData');
   const studentName = userData ? JSON.parse(userData).name : '';
-console.log(userData,"userData")
-console.log(studentName,"studentName")
+
   return (
     <BrowserRouter>
       <Routes>
@@ -51,7 +50,7 @@ console.log(studentName,"studentName")
           }
         />
         <Route path="/video-player/:videoId" element={<ProtectedRoute element={<LectureScreen />} />} />
-        <Route path="/student-result" element={<ProtectedRoute element={<StudentResultScreen />} />} />
+        {/* <Route path="/student-result" element={<ProtectedRoute element={<StudentResultScreen />} />} /> */}
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

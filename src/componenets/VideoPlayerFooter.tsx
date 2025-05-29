@@ -9,19 +9,22 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
     setShowWebcam: React.Dispatch<React.SetStateAction<boolean>>;
-    //   togglePlay: () => void;
+    togglePlay: () => void;
+    setOpenAchievement: (value:boolean) => void;
     isPlaying: boolean;
+    duration: number;
+    currentTime: number;
 }
-const VideoPlayerFooter: React.FC<Props> = ({ setShowWebcam, isPlaying }) => {
+const VideoPlayerFooter: React.FC<Props> = ({ setShowWebcam, isPlaying, togglePlay,duration,currentTime,setOpenAchievement }) => {
     const navigate = useNavigate()
     return (
         <div className=' relative w-full'>
-            <div className='absolute left-1/2 bottom-[80px] w-full flex items-center text-white gap-2 hover:cursor-pointer'>
+            <div className='absolute -right-4 bottom-[100px] w-full flex items-center text-white gap-2 hover:cursor-pointer'>
                 <img src={videoIcon} onClick={() => setShowWebcam(prev => !prev)} alt='videoIcon' className='w-16 h-16' />
                 {/* <IoExit className='w-16 h-16' /> */}
                 <div className='bg-black rounded-full p-3'>
                     <div className='bg-purple-800 rounded-full p-[10px]'>
-                        <ImExit onClick={() => navigate("/student-result")} className='w-5 h-5 text-white' />
+                        <ImExit onClick={() => setOpenAchievement(true)} className='w-5 h-5 text-white' />
                     </div>
                 </div>
 

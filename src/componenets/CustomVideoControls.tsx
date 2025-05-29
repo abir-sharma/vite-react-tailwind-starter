@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 
 interface Props {
-//   togglePlay: () => void;
-  isPlaying: boolean;
+    //   togglePlay: () => void;
+    isPlaying: boolean;
 }
-const MOCK_DURATION = 120; // 2 minutes (in seconds)
+const MOCK_DURATION = 236; // 2 minutes (in seconds)
 
-const VideoPlayerFooter:React.FC<Props> = ({isPlaying}) => {
+const VideoPlayerFooter: React.FC<Props> = ({ isPlaying }) => {
     // const [isPlaying, setIsPlaying] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
     const [isMuted, setIsMuted] = useState(false);
@@ -54,7 +54,11 @@ const VideoPlayerFooter:React.FC<Props> = ({isPlaying}) => {
 
             {/* Controls Below */}
             <div style={styles.controlsRow}>
-                <div style={styles.time}>{formatTime(currentTime)}</div>
+                {/* <div style={styles.time}>{formatTime(currentTime)}</div> */}
+                <div style={styles.time}>
+                    {formatTime(currentTime)} / {formatTime(MOCK_DURATION)}
+                </div>
+
                 <button style={styles.controlButton}>
                     {isPlaying ? <FaPause size={18} /> : <FaPlay size={18} />}
                 </button>
@@ -121,3 +125,5 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 export default VideoPlayerFooter;
+
+

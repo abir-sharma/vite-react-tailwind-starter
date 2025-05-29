@@ -16,6 +16,12 @@ import FaceMeshComponent from './FaceMeshComponent';
 import axios from 'axios';
 import socket from "../socket"
 import StudentCameraComponent from './StudentCameraComponant';
+import AchievementModal from './AchievementModal';
+import negativemp3 from "../assets/negative.mp3"
+import positivemp3 from "../assets/positive.mp3"
+
+
+const MOCK_DURATION = 236;
 
 const VideoPlayer = ({
     src,
@@ -77,8 +83,31 @@ const VideoPlayer = ({
         }, 3000);
     };
 
-    
-    
+
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+
+    useEffect(() => {
+        if (isPlaying) {
+            if (!intervalRef.current) {
+                intervalRef.current = setInterval(() => {
+                    setCurrentTime(prev => {
+                        if (prev >= MOCK_DURATION) {
+                            clearInterval(intervalRef.current!);
+                            return MOCK_DURATION;
+                        }
+                        return prev + 1;
+                    });
+                }, 1000);
+            }
+        } else {
+            clearInterval(intervalRef.current!);
+            intervalRef.current = null;
+        }
+
+        return () => clearInterval(intervalRef.current!);
+    }, [isPlaying]);
+
     useEffect(() => {
         return () => {
             if (hideControlsTimeout.current) {
@@ -220,21 +249,6 @@ const VideoPlayer = ({
 
     const [openAcheivment, setOpenAchievement] = useState(false)
 
-
-
-
-
-    // const closePlayer = () => {
-    //     if (videoRef.current) {
-    //         videoRef.current.pause();
-    //     }
-    //     setSelectedVideo(null);
-    // };
-    const speak = (message: string) => {
-        const utterance = new SpeechSynthesisUtterance(message);
-        speechSynthesis.speak(utterance);
-    };
-    console.log(isInFrame, "isInFrame")
     useEffect(() => {
         if (submitAnswer) {
             const promise = new Promise<void>((resolve, reject) => {
@@ -287,7 +301,7 @@ const VideoPlayer = ({
             })
         }
 
-    }, [showWebcam,isInFrame])
+    }, [showWebcam, isInFrame])
 
 
 
@@ -312,27 +326,33 @@ const VideoPlayer = ({
                 lookTimer = setTimeout(() => {
                     const message = "Don't get distracted!";
                     toast(message + " 📚");
-                    speak(message + studentName);
+                    // speak(message + studentName);
+                    const audio = new Audio(negativemp3);
+                    audio.play();
                     triggerCoinAnimation(-10)
-                }, 10000);
+                }, 3000);
             }
 
             if (!lookingUp && !lookingLeft && !lookingRight && eyeStatus === "open") {
                 eyeTimer = setTimeout(() => {
                     const message = "Great job staying engaged!";
                     toast(message + " 👍");
-                    speak(message + studentName);
+                    // speak(message + studentName);
+                    const audio = new Audio(positivemp3);
+                    audio.play();
                     triggerCoinAnimation(+20)
-                }, 10000);
+                }, 3000);
             }
 
             if (eyeStatus === 'both_closed') {
                 eyeTimer = setTimeout(() => {
                     const message = "Hey! Wake up. Stay focused.";
                     toast("😴 " + message);
-                    speak(message + studentName);
+                    // speak(message + studentName);
+                    const audio = new Audio(negativemp3);
+                    audio.play();
                     triggerCoinAnimation(-10)
-                }, 10000);
+                }, 3000);
             }
 
         }
@@ -469,8 +489,19 @@ const VideoPlayer = ({
                     setModalDecisionMade(true)
                 }}
             />
-            {showControls && <VideoPlayerHeader />}
-            {showControls && <VideoPlayerFooter setShowWebcam={setShowWebcam} isPlaying={isPlaying} />}
+            {true && <VideoPlayerHeader currentTime={currentTime} />}
+            {/* {showControls && <VideoPlayerFooter setShowWebcam={setShowWebcam} isPlaying={isPlaying} />} */}
+            {true && <VideoPlayerFooter
+                isPlaying={isPlaying}
+                togglePlay={togglePlay}
+                currentTime={currentTime}
+                duration={MOCK_DURATION}
+                setShowWebcam={setShowWebcam}
+                setOpenAchievement={setOpenAchievement}
+            />}
+
+            {openAcheivment && <AchievementModal isOpen={true} setOpenAchievement={setOpenAchievement} />}
+
 
 
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar />

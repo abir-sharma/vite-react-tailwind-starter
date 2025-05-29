@@ -65,87 +65,81 @@ const Index: React.FC<Props>  = ({studentName}) => {
   //     }
   //     setSelectedVideo(null);
   // };
-  const speak = (message: string) => {
-    const utterance = new SpeechSynthesisUtterance(message);
-    speechSynthesis.speak(utterance);
-  };
-  console.log(isInFrame, "isInFrame")
-  useEffect(() => {
-    if (submitAnswer) {
-      const promise = new Promise<void>((resolve, reject) => {
-        // Simulate an async action like submitting an answer
-        setTimeout(() => {
-          const success = Math.random() > 0.3; // 70% chance of success
-          if (success) {
-            setAnswerSubmittedSuccessfully(true);
-            triggerCoinAnimation(+50)
-            resolve();
-          } else {
-            setAnswerSubmittedSuccessfully(false);
-            triggerCoinAnimation(-20)
-            reject();
-          }
-          setSubmitAnswer(false);
-        }, 5000); // 3 seconds simulation
-      });
+  // const speak = (message: string) => {
+  //   const utterance = new SpeechSynthesisUtterance(message);
+  //   speechSynthesis.speak(utterance);
+  // };
+  // console.log(isInFrame, "isInFrame")
+  // useEffect(() => {
+  //   if (submitAnswer) {
+  //     const promise = new Promise<void>((resolve, reject) => {
+  //       // Simulate an async action like submitting an answer
+  //       setTimeout(() => {
+  //         const success = Math.random() > 0.3; // 70% chance of success
+  //         if (success) {
+  //           setAnswerSubmittedSuccessfully(true);
+  //           triggerCoinAnimation(+50)
+  //           resolve();
+  //         } else {
+  //           setAnswerSubmittedSuccessfully(false);
+  //           triggerCoinAnimation(-20)
+  //           reject();
+  //         }
+  //         setSubmitAnswer(false);
+  //       }, 5000); // 3 seconds simulation
+  //     });
 
-      toast.promise(promise, {
-        pending: 'Please show your notebook to camera, Submitting your answer...',
-        success: 'Answer submitted successfully! 🎉',
-        error: 'Failed to submit answer. Please try again. ❌'
-      });
-    }
-  }, [submitAnswer]);
-
-
-  useEffect(() => {
-    let lookTimer: ReturnType<typeof setTimeout>;
-    let eyeTimer: ReturnType<typeof setTimeout>;
+  //     toast.promise(promise, {
+  //       pending: 'Please show your notebook to camera, Submitting your answer...',
+  //       success: 'Answer submitted successfully! 🎉',
+  //       error: 'Failed to submit answer. Please try again. ❌'
+  //     });
+  //   }
+  // }, [submitAnswer]);
 
 
-    if (true) {
-      // Check for looking directions
-      if (lookingLeft || lookingRight || lookingUp) {
-        lookTimer = setTimeout(() => {
-          const message = "Don't get distracted!";
-          toast(message + " 📚");
-          speak(message + studentName);
-          triggerCoinAnimation(-10)
-        }, 10000);
-      }
+  // useEffect(() => {
+  //   let lookTimer: ReturnType<typeof setTimeout>;
+  //   let eyeTimer: ReturnType<typeof setTimeout>;
 
-      if (!lookingUp && !lookingLeft && !lookingRight && eyeStatus === "open") {
-        eyeTimer = setTimeout(() => {
-          const message = "Great job staying engaged!";
-          toast(message + " 👍");
-          speak(message + studentName);
-          triggerCoinAnimation(+20)
-        }, 10000);
-      }
 
-      if (eyeStatus === 'both_closed') {
-        eyeTimer = setTimeout(() => {
-          const message = "Hey! Wake up. Stay focused.";
-          toast("😴 " + message);
-          speak(message + studentName);
-          triggerCoinAnimation(-10)
-        }, 10000);
-      }
+  //   if (true) {
+  //     // Check for looking directions
+  //     if (lookingLeft || lookingRight || lookingUp) {
+  //       lookTimer = setTimeout(() => {
+  //         const message = "Don't get distracted!";
+  //         toast(message + " 📚");
+  //         speak(message + studentName);
+  //         triggerCoinAnimation(-10)
+  //       }, 10000);
+  //     }
 
-    }
+  //     if (!lookingUp && !lookingLeft && !lookingRight && eyeStatus === "open") {
+  //       eyeTimer = setTimeout(() => {
+  //         const message = "Great job staying engaged!";
+  //         toast(message + " 👍");
+  //         speak(message + studentName);
+  //         triggerCoinAnimation(+20)
+  //       }, 10000);
+  //     }
 
-    return () => {
-      clearTimeout(lookTimer);
-      clearTimeout(eyeTimer);
-    };
-  }, [lookingLeft, lookingRight, lookingUp, lookingDown, eyeStatus]);
-  // console.log("looking left", lookingLeft)
-  // console.log("looking Right", lookingRight)
-  // console.log("looking down", lookingDown)
-  // console.log("looking up", lookingUp)
-  // console.log("eyeStatus", eyeStatus)
-  // console.log(showModal, "showModal")
-  // console.log(activateAttentivness,"activateattentivness")
+  //     if (eyeStatus === 'both_closed') {
+  //       eyeTimer = setTimeout(() => {
+  //         const message = "Hey! Wake up. Stay focused.";
+  //         toast("😴 " + message);
+  //         speak(message + studentName);
+  //         triggerCoinAnimation(-10)
+  //       }, 10000);
+  //     }
+
+  //   }
+
+  //   return () => {
+  //     clearTimeout(lookTimer);
+  //     clearTimeout(eyeTimer);
+  //   };
+  // }, [lookingLeft, lookingRight, lookingUp, lookingDown, eyeStatus]);
+ 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '../componenets/ui/button';
 import { Award, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { RxCross2 } from "react-icons/rx";
 
 interface AchievementModalProps {
   isOpen: boolean;
@@ -12,11 +13,15 @@ const AchievementModal: React.FC<AchievementModalProps> = ({ isOpen, setOpenAchi
   if (!isOpen) return null;
   const navigate=useNavigate()
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-0">
+      
       <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+                  {/* <div className='w-full bg-green-300'><RxCross2 /> */}
+{/* </div> */}
+
         {/* Header */}
-        <div className="text-center pt-8 pb-6 px-6">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Great</h1>
+        <div className="text-center pt-4 pb-6 px-6">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Great !!</h1>
           <p className="text-gray-600 text-base">
             You scored higher than 65% of people who have these test
           </p>
